@@ -20,6 +20,8 @@ $user_id = getSession('user_id');
 
    <link href="<?php echo base_url(); ?>assets/libs/bootstrap/bootstrap-5.2.3-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
+   <link href="<?php echo base_url(); ?>assets/css/global_style.css" rel="stylesheet" type="text/css" />
+
    <!-- BEGIN PAGE LEVEL STYLES -->
    <?php if (isset($styles)) {
       foreach ($styles as $style) {

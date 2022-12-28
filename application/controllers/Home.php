@@ -23,6 +23,7 @@ class Home extends CI_Controller
 
 		$scripts = [
 			'assets/js/pages/home/scripts.js?ver=' . time(),
+			'assets/js/pages/home/count-down-script.js?ver=' . time(),
 		];
 
 		$data = [
@@ -30,7 +31,15 @@ class Home extends CI_Controller
 		];
 
 		$this->load->view('_includes/header', ['styles' => $styles]);
-		$this->load->view('home', $data);
+		$this->load->view('home/top-banner', $data);
+		$this->load->view('home/watch-video');
+		$this->load->view('home/faq-video');
+		$this->load->view('home/people-saying');
+		$this->load->view('home/happy-members');
+		$this->load->view('home/faq');
+		$this->load->view('home/contact-title');
+		$this->load->view('home/contact-section');
+		$this->load->view('home/desc-section');
 		$this->load->view('_includes/footer', ['scripts' => $scripts]);
 	}
 }
