@@ -100,12 +100,12 @@
       </div>
 
       <div class="row">
-         <div class="col col-lg-6 col-sm-12">
+         <div class="col-lg-6 col-sm-12">
             <h6 class="text-center text-yellow mb-3">
                YOU GET ACCESS TO OUR FREE TRAFFIC CHECKLIST
             </h6>
          </div>
-         <div class="col col-lg-6 col-sm-12">
+         <div class="col-lg-6 col-sm-12">
             <h6 class="text-center text-yellow mb-3">
                OUR SUCCESS COACHES CLOSE YOUR DEALS
             </h6>

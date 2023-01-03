@@ -4,13 +4,13 @@
    <div class="container">
       <div class="row">
          <div class="col col-lg-7 col-sm-12">
-            <div class="green-border p-3">
+            <div class="green-border p-3 mb-3">
                <p class="text-center text-white sub-title mb-0">
                   Don’t Need To Call??<br>
                   I’M READY TO JOIN!!!
                </p>
             </div>
-            <div class="green-border p-3 mt-3">
+            <div class="green-border p-3 mb-3">
                <p class="text-center text-white sub-title mb-0">
                   Fill Out The Form Below
                </p>
@@ -91,7 +91,7 @@
             </div>
          </div>
          <div class="col col-lg-5 col-sm-12">
-            <div class="green-border p-3">
+            <div class="green-border mb-3 p-3">
                <p class="text-center text-white sub-title mb-0">
                   48 Hour Upgrade Bonus!
                </p>
@@ -118,7 +118,7 @@
                </p>
             </div>
 
-            <div class="green-border p-3 mt-3 d-flex">
+            <div class="green-border p-3 mb-3 d-flex">
                <div style="width: 60px;">
                   <img src="<?php echo base_url(); ?>assets/imgs/privacy_icon.png" width="40" />
                </div>
@@ -131,7 +131,7 @@
                   </p>
                </div>
             </div>
-            <div class="green-border p-3 mt-3 d-flex">
+            <div class="green-border p-3 mb-3 d-flex">
                <div style="width: 60px;">
                   <img src="<?php echo base_url(); ?>assets/imgs/secure_order_icon.png" width="40" />
                </div>
@@ -145,7 +145,7 @@
                </div>
             </div>
 
-            <div class="green-border p-3 mt-3 d-flex">
+            <div class="green-border p-3 mb-3 d-flex">
                <div style="width: 60px;">
                   <img src="<?php echo base_url(); ?>assets/imgs/approved_icon.png" width="40" />
                </div>

@@ -85,3 +85,18 @@ h6 {
    border-width: 5px;
    border-color: #85c659;
 }
+
+@media screen and (max-width: 640px) {
+   h1, h2 {
+     font-size: 40px;
+   }
+   h3 {
+      font-size: 25px;
+   }
+   h4 {
+      font-size: 16px;
+   }
+   h6 {
+      font-size: 16px;
+   }
+ }
