@@ -58,12 +58,15 @@
                   </div>
                   <div class="mb-3">
                      <input type="text" class="form-control" id="username" name="username" placeholder="Enter New Login Username" required>
+                     <p id="duplicate_user_alert" class="d-none text-red">Username has already exists!</p>
                   </div>
                   <div class="mb-3">
                      <input type="text" class="form-control" id="password" name="password" placeholder="Enter New Login Password" required>
                   </div>
                   <div class="mb-3">
                      <input type="text" class="form-control" id="referral_id" name="referral_id" placeholder="Your New Referral ID... ONLY Letters  & Numbers - ex. BobsMoneyTree1">
+                     <p id="duplicate_referral_id_alert" class="d-none text-red">Referral ID has already exists!</p>
+                     <p id="invalid_referral_id_alert" class="d-none text-red">Only Enter Numbers & Letters ( No spaces & No special symbols )!</p>
                   </div>
                   <div class="mb-3">
                      <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number">
@@ -163,6 +166,9 @@
       setTimeout(function() {
          let domain_url = `<?php echo base_url(); ?>`;
          let current_url = window.location.href;
+         if (domain_url.slice(-1) == '/') {
+            domain_url = domain_url.slice(0, -1);
+         }
          if (current_url.slice(-1) == '/') {
             current_url = current_url.slice(0, -1);
          }
@@ -170,17 +176,54 @@
          console.log('current url: ', current_url);
          let admin_username = 'admin';
          if (current_url != domain_url) {
-            admin_username = current_url.replace(`${domain_url}?`, '');
+            admin_username = current_url.replace(`${domain_url}/?`, '');
          }
 
          $('#parent_username').attr('value', admin_username);
       }, 1000);
+
+      $('#username').keyup(function() {
+         if (!$('#duplicate_user_alert').hasClass('d-none')) {
+            $('#duplicate_user_alert').addClass('d-none');
+         }
+      });
+
+      $('#referral_id').keyup(function() {
+         if (!$('#duplicate_referral_id_alert').hasClass('d-none')) {
+            $('#duplicate_referral_id_alert').addClass('d-none');
+         }
+         let referral_id = $('#referral_id').val();
+         if (referral_id == '')
+            return;
+         console.log(referral_id);
+         console.log('string checker:', /^([a-zA-Z0-9]{1,})$/.test(referral_id));
+         if (!/^([a-zA-Z0-9]{1,})$/.test(referral_id)) {
+            $('#invalid_referral_id_alert').removeClass('d-none');
+            $('#signup_form input[type="submit"]').prop("disabled", true);
+            return;
+         } else {
+            if (!$('#invalid_referral_id_alert').hasClass('d-none')) {
+               $('#invalid_referral_id_alert').addClass('d-none');
+            }
+            $('#signup_form input[type="submit"]').prop("disabled", false);
+         }
+      });
 
       $('#signup_form').submit(function() {
          let post_data = $('#signup_form').serialize();
          console.log('submit url: ', `<?php echo base_url('email'); ?>`);
          $.post(`<?php echo base_url('email'); ?>`, post_data, function(data) {
             console.log('submit result: ', data);
+            switch (data) {
+               case 'Username has already exists!':
+                  $('#duplicate_user_alert').removeClass('d-none');
+                  break;
+               case 'Referral ID has already exists!':
+                  $('#duplicate_referral_id_alert').removeClass('d-none');
+                  break;
+               default:
+                  window.location.href = `<?php echo base_url('login'); ?>`;
+            }
          });
 
          return false;

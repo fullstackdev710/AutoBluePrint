@@ -25,6 +25,23 @@ class User extends CI_Controller
    public function index()
    {
       $user_id = getSession('user_id');
-      $this->load->view('user');
+      $this->load->model('User_model');
+      $user_info = $this->User_model->getUserInfo($user_id);
+
+      $styles = [
+         'assets/css/pages/admin/styles.css?ver=' . time(),
+      ];
+
+      $scripts = [
+         'assets/js/pages/admin/scripts.js?ver=' . time(),
+      ];
+
+      $data = [
+         'user_info' => $user_info,
+      ];
+
+      $this->load->view('_includes/header', ['styles' => $styles]);
+      $this->load->view('user', $data);
+      $this->load->view('_includes/footer', ['scripts' => $scripts]);
    }
 }

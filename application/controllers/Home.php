@@ -19,6 +19,10 @@ class Home extends CI_Controller
 
 	public function index()
 	{
+		$page_owner = $_SERVER['QUERY_STRING'];
+		$this->load->model('User_model');
+		$this->User_model->addNewView($page_owner);
+
 		$styles = [
 			'assets/css/pages/home/styles.css?ver=' . time(),
 		];
@@ -29,6 +33,7 @@ class Home extends CI_Controller
 		];
 
 		$data = [
+			// 'page_owner'   => $page_owner
 			// 'user' => $this->User_model->get_user_by_user_id($user_id)
 		];
 
@@ -43,28 +48,5 @@ class Home extends CI_Controller
 		$this->load->view('home/contact-section');
 		$this->load->view('home/desc-section');
 		$this->load->view('_includes/footer', ['scripts' => $scripts]);
-	}
-
-	function send()
-	{
-		$this->load->config('email');
-		$this->load->library('email');
-
-		$from = $this->config->item('smtp_user');
-		$to = $this->input->post('to');
-		$subject = $this->input->post('subject');
-		$message = $this->input->post('message');
-
-		$this->email->set_newline("\r\n");
-		$this->email->from($from);
-		$this->email->to($to);
-		$this->email->subject($subject);
-		$this->email->message($message);
-
-		if ($this->email->send()) {
-			echo 'Your Email has successfully been sent.';
-		} else {
-			show_error($this->email->print_debugger());
-		}
 	}
 }

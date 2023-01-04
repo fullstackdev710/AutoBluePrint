@@ -18,6 +18,7 @@ class Login extends CI_Controller
       }
       $this->load->view('login');
    }
+
    public function process()
    {
       $this->load->model("Auth_model");

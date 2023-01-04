@@ -1,0 +1,22 @@
+#view_page input {
+   width: 360px;
+   display: inline-block;
+   padding: 4px 8px;
+   border: solid 1px white;
+}
+#copy_webinar_link {
+   cursor: pointer;
+}
+#admin_board .nav-link {
+   color: white;
+}
+#admin_board .active.nav-link {
+   color: #e74c3c;
+   font-weight: bold;
+}
+#user_list th, #user_list td {   
+   text-align: center;
+}
+#user_list th:first-child, #user_list th:last-child, #user_list td:first-child, #user_list td:last-child {
+   width: 70px;
+}

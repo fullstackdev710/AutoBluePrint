@@ -25,6 +25,9 @@ class Admin extends CI_Controller
    public function index()
    {
       $user_id = getSession('user_id');
+      $this->load->model('User_model');
+      $user_info = $this->User_model->getUserInfo($user_id);
+      $users = $this->User_model->getUserList();
 
       $styles = [
          'assets/css/pages/admin/styles.css?ver=' . time(),
@@ -35,7 +38,8 @@ class Admin extends CI_Controller
       ];
 
       $data = [
-         'user' => $user_id
+         'user_info' => $user_info,
+         'users'     => $users
       ];
 
       $this->load->view('_includes/header', ['styles' => $styles]);

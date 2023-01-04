@@ -16,6 +16,16 @@ class EmailController extends CI_Controller
    {
       $this->load->config('email');
       $this->load->library('email');
+      $this->load->model('User_model');
+
+      if ($this->User_model->existSameUser($this->input->post('username'))) {
+         echo 'Username has already exists!';
+         return;
+      }
+      if ($this->User_model->existSameReferralID($this->input->post('referral_id'))) {
+         echo 'Referral ID has already exists!';
+         return;
+      }
 
       $from = $this->config->item('smtp_user');
       // $from = 'AutoBluePrint';
@@ -100,6 +110,8 @@ class EmailController extends CI_Controller
       $this->email->message($message);
 
       if ($this->email->send()) {
+         $this->User_model->addNewUser();
+
          echo 'Your Email has successfully been sent.';
       } else {
          show_error($this->email->print_debugger());
