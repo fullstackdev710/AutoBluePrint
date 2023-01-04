@@ -22,6 +22,16 @@
 .bg-green {
    background-color: #85c659 !important;
 }
+.bg-red {
+   background-color: #e74c3c !important;
+}
+.bg-img-blue {
+   background-image: url('../imgs/blue_bg.jpg');
+   background-attachment: fixed;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+}
 .container {
    max-width: 1080px !important;
 }
@@ -85,7 +95,15 @@ h6 {
    border-width: 5px;
    border-color: #85c659;
 }
-
+.logout_btn {
+   position: absolute;
+   right: 20px;
+   top: 20px;
+   color: white;
+   background-color: #e74c3c;
+   padding: 10px 20px;
+   text-decoration: none;
+}
 @media screen and (max-width: 640px) {
    h1, h2 {
      font-size: 40px;

@@ -7,6 +7,8 @@ class Home extends CI_Controller
 	{
 		parent::__construct();
 
+		$this->load->helper('url');
+
 		// $user_id = getSession('user_id');
 
 		// if (!isset($user_id) || $user_id == '') {
@@ -41,5 +43,28 @@ class Home extends CI_Controller
 		$this->load->view('home/contact-section');
 		$this->load->view('home/desc-section');
 		$this->load->view('_includes/footer', ['scripts' => $scripts]);
+	}
+
+	function send()
+	{
+		$this->load->config('email');
+		$this->load->library('email');
+
+		$from = $this->config->item('smtp_user');
+		$to = $this->input->post('to');
+		$subject = $this->input->post('subject');
+		$message = $this->input->post('message');
+
+		$this->email->set_newline("\r\n");
+		$this->email->from($from);
+		$this->email->to($to);
+		$this->email->subject($subject);
+		$this->email->message($message);
+
+		if ($this->email->send()) {
+			echo 'Your Email has successfully been sent.';
+		} else {
+			show_error($this->email->print_debugger());
+		}
 	}
 }

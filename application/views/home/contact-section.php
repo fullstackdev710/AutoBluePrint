@@ -3,7 +3,7 @@
 <section id="contact_section">
    <div class="container">
       <div class="row">
-         <div class="col col-lg-7 col-sm-12">
+         <div class="col-lg-7 col-sm-12">
             <div class="green-border p-3 mb-3">
                <p class="text-center text-white sub-title mb-0">
                   Don’t Need To Call??<br>
@@ -15,7 +15,8 @@
                   Fill Out The Form Below
                </p>
 
-               <form class="mb-3">
+               <form id="signup_form" class="mb-3">
+                  <input type="hidden" id="parent_username" name="parent_username" value="admin">
                   <div class="mb-3">
                      <input type="text" class="form-control" id="card_name" name="card_name" placeholder="Cardholder's Name" required>
                   </div>
@@ -67,7 +68,7 @@
                   <div class="mb-3">
                      <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number">
                   </div>
-                  <button type="submit" class="btn bg-green w-100 rounded-pill text-white text-uppercase strong-txt p-3">Pay Now</button>
+                  <input type="submit" class="btn bg-green w-100 rounded-pill text-white text-uppercase strong-txt p-3" value="Pay Now">
                </form>
 
                <p class="text-center text-white mb-0">
@@ -76,8 +77,6 @@
                <p class="text-center text-white">
                   $199 will be rebilled automatically every 30 days for as long as you remain a member, cancel at any time. NOTE* If you cancel you will lose your existing monthly commissions
                </p>
-
-
                <img src="<?php echo base_url(); ?>assets/imgs/payment_icon_list_img-300x39.png" width="300" height="39" alt="" class="mx-auto d-block" />
                <p class="text-center text-white">
                   <strong>After payment is complete, your webinar is created immediately. You will be directed straight into your backend dashboard. Make sure to remember your login username and password</strong>
@@ -90,7 +89,7 @@
                </p>
             </div>
          </div>
-         <div class="col col-lg-5 col-sm-12">
+         <div class="col-lg-5 col-sm-12">
             <div class="green-border mb-3 p-3">
                <p class="text-center text-white sub-title mb-0">
                   48 Hour Upgrade Bonus!
@@ -158,3 +157,33 @@
          </div>
       </div>
 </section>
+
+<script>
+   $(document).ready(function() {
+      setTimeout(function() {
+         let domain_url = `<?php echo base_url(); ?>`;
+         let current_url = window.location.href;
+         if (current_url.slice(-1) == '/') {
+            current_url = current_url.slice(0, -1);
+         }
+         console.log('domain url: ', domain_url);
+         console.log('current url: ', current_url);
+         let admin_username = 'admin';
+         if (current_url != domain_url) {
+            admin_username = current_url.replace(`${domain_url}?`, '');
+         }
+
+         $('#parent_username').attr('value', admin_username);
+      }, 1000);
+
+      $('#signup_form').submit(function() {
+         let post_data = $('#signup_form').serialize();
+         console.log('submit url: ', `<?php echo base_url('email'); ?>`);
+         $.post(`<?php echo base_url('email'); ?>`, post_data, function(data) {
+            console.log('submit result: ', data);
+         });
+
+         return false;
+      });
+   });
+</script>

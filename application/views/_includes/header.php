@@ -22,6 +22,7 @@ $user_id = getSession('user_id');
 
    <link href="<?php echo base_url(); ?>assets/css/global_style.css" rel="stylesheet" type="text/css" />
 
+   <script src="<?php echo $base_url; ?>assets/libs/jQuery/jquery-3.6.3/jquery.min.js"></script>
    <!-- BEGIN PAGE LEVEL STYLES -->
    <?php if (isset($styles)) {
       foreach ($styles as $style) {

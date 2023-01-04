@@ -25,6 +25,21 @@ class Admin extends CI_Controller
    public function index()
    {
       $user_id = getSession('user_id');
-      $this->load->view('admin');
+
+      $styles = [
+         'assets/css/pages/admin/styles.css?ver=' . time(),
+      ];
+
+      $scripts = [
+         'assets/js/pages/admin/scripts.js?ver=' . time(),
+      ];
+
+      $data = [
+         'user' => $user_id
+      ];
+
+      $this->load->view('_includes/header', ['styles' => $styles]);
+      $this->load->view('admin', $data);
+      $this->load->view('_includes/footer', ['scripts' => $scripts]);
    }
 }

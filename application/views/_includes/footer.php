@@ -2,7 +2,6 @@
 
 <?php $base_url = base_url(); ?>
 
-<script src="<?php echo $base_url; ?>assets/libs/jQuery/jquery-3.6.3/jquery.min.js"></script>
 <script src="<?php echo $base_url; ?>assets/libs/bootstrap/bootstrap-5.2.3-dist/js/bootstrap.min.js"></script>
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
