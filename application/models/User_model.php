@@ -83,12 +83,33 @@ class User_model extends CI_Model
 
    function getUserList()
    {
-      $users = $this->db->where('username != ', 'admin')->select('username, referral_id, approved, payment_status')->get('users')->result_array();
+      $users = $this->db->where('username != ', 'admin')->select('ID, username, referral_id, payment_status')->get('users')->result_array();
 
       if (count($users) > 0) {
          return $users;
       } else {
          return false;
       }
+   }
+
+   function updateUserPaymentStatus($user_id, $status)
+   {
+      return $this->db->where('ID', $user_id)->update('users', array('payment_status' => $status));
+   }
+
+   function addFakeSignUps($users, $amount)
+   {
+      foreach ($users as $user_id) {
+         $cur_signups = $this->db->where('ID', $user_id)->select('signup_counts')->get('users')->row_array()['signup_counts'];
+         $signup_counts = (int)$cur_signups + (int)$amount;
+         $this->db->where('ID', $user_id)->update('users', array('signup_counts' => $signup_counts));
+      }
+
+      return true;
+   }
+
+   function deleteUser($user_id)
+   {
+      return $this->db->delete('users', array('ID' => $user_id));
    }
 }

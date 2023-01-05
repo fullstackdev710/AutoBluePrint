@@ -20,3 +20,21 @@
 #user_list th:first-child, #user_list th:last-child, #user_list td:first-child, #user_list td:last-child {
    width: 70px;
 }
+#unapproved_users table tr[payment-status="1"] {
+   display: none;
+}
+#add_signup_control_panel {
+   display: flex;
+}
+#add_signup_control_panel label {
+   line-height: 2em;
+}
+#add_signup_success {
+   display: none;
+}
+#unapproved_users th:first-child {
+   width: 70px;
+}
+#add_signups th:first-child {
+   width: 70px;
+}

@@ -46,4 +46,34 @@ class Admin extends CI_Controller
       $this->load->view('admin', $data);
       $this->load->view('_includes/footer', ['scripts' => $scripts]);
    }
+
+   public function updateUserPaymentStatus()
+   {
+      $this->load->model('User_model');
+      $user_id = $this->input->post('user_id');
+      $status = $this->input->post('status');
+      $update_user_approve = $this->User_model->updateUserPaymentStatus($user_id, $status);
+
+      echo $update_user_approve;
+   }
+
+   public function addSignUps()
+   {
+      $users = $this->input->post('selected_users');
+      $amount = $this->input->post('amount');
+
+      $this->load->model('User_model');
+      $addSignUps = $this->User_model->addFakeSignUps($users, $amount);
+
+      echo $addSignUps;
+   }
+
+   public function deleteUser()
+   {
+      $user_id = $this->input->post('user_id');
+      $this->load->model('User_model');
+      $deleted = $this->User_model->deleteUser($user_id);
+
+      echo $deleted;
+   }
 }

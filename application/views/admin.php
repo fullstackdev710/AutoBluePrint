@@ -57,15 +57,15 @@
                            if ($users !== false) {
                               foreach ($users as $user) {
                            ?>
-                                 <tr>
+                                 <tr data-id="<?php echo $user['ID']; ?>">
                                     <td>
-                                       <input type="checkbox" id="<?php echo $user['username']; ?>" name="<?php echo $user['username']; ?>" class="user_approve_checker" onclick="update_approve('<?php echo $user['username']; ?>')" value="<?php echo $user['username']; ?>" <?php echo $user['payment_status'] == 1 ? 'checked' : ''; ?>>
+                                       <input type="checkbox" id="<?php echo $user['ID']; ?>" name="<?php echo $user['ID']; ?>" role="button" class="user_approve_checker" onclick="update_payment_status(<?php echo $user['ID']; ?>)" <?php echo $user['payment_status'] == 1 ? 'checked' : ''; ?>>
                                     </td>
                                     <td>
-                                       <label for="<?php echo $user['username']; ?>" onclick="update_approve('<?php echo $user['username']; ?>')"> <?php echo $user['referral_id']; ?></label>
+                                       <label role="button" for="<?php echo $user['ID']; ?>" onclick="update_payment_status(<?php echo $user['ID']; ?>)"> <?php echo $user['referral_id']; ?></label>
                                     </td>
                                     <td>
-                                       <label style="float: right; color: #e74c3c; cursor: pointer;" onclick="delete_user('<?php echo $user['username']; ?>')">Delete</label>
+                                       <label role="button" style="float: right; color: #e74c3c; cursor: pointer;" onclick="delete_user(<?php echo $user['ID']; ?>)">Delete</label>
                                     </td>
                                  </tr>
                            <?php
@@ -76,10 +76,68 @@
                      </table>
                   </div>
                   <div class="tab-pane fade" id="unapproved_users">
-                     Unapproved
+                     <table class="table text-white">
+                        <thead>
+                           <tr>
+                              <th scope="col" class="text-center">Status</th>
+                              <th scope="col" class="text-center">Referral ID</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <?php
+                           if ($users !== false) {
+                              foreach ($users as $user) {
+                           ?>
+                                 <tr data-id="<?php echo $user['ID']; ?>" payment-status="<?php echo $user['payment_status']; ?>">
+                                    <td class="text-center">
+                                       <input type="checkbox" id="unapproved_<?php echo $user['ID']; ?>" name="<?php echo $user['ID']; ?>" role="button" class="user_approve_checker" onclick="update_unapproved_payment_status(<?php echo $user['ID']; ?>)" <?php echo $user['payment_status'] == 1 ? 'checked' : ''; ?>>
+                                    </td>
+                                    <td>
+                                       <label role="button" for="unapproved_<?php echo $user['ID']; ?>" onclick="update_unapproved_payment_status(<?php echo $user['ID']; ?>)"> <?php echo $user['referral_id']; ?></label>
+                                    </td>
+                                 </tr>
+                           <?php
+                              }
+                           }
+                           ?>
+                        </tbody>
+                     </table>
                   </div>
                   <div class="tab-pane fade" id="add_signups">
-                     Add SignUps
+                     <div id="add_signup_control_panel" class="py-2">
+                        <label for="signup_amount" class="text-white">Singup Amounts:</label>
+                        <input type="number" id="signup_amount" style="width: 80px;" name="signup_amount" value="3" class="mx-2">
+                        <button class="btn bg-white text-black rounded-0 mx-2" onclick="add_singups()">Add SignUps</button>
+                     </div>
+                     <p class="text-white" id="add_signup_success">Added <span>3</span> Sign Ups</p>
+                     <table class="table text-white" id="tbl_add_signup_users">
+                        <thead>
+                           <tr>
+                              <th scope="col" class="text-center">
+                                 <input type="checkbox" id="check_all_signs" role="button" onclick="check_all_signups()">
+                              </th>
+                              <th scope="col" class="text-center">Referral ID</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <?php
+                           if ($users !== false) {
+                              foreach ($users as $user) {
+                           ?>
+                                 <tr data-id="<?php echo $user['ID']; ?>">
+                                    <td class="text-center">
+                                       <input type="checkbox" role="button" id="add_signups_<?php echo $user['ID']; ?>" data-id="<?php echo $user['ID']; ?>">
+                                    </td>
+                                    <td>
+                                       <label role="button" for="add_signups_<?php echo $user['ID']; ?>"> <?php echo $user['referral_id']; ?></label>
+                                    </td>
+                                 </tr>
+                           <?php
+                              }
+                           }
+                           ?>
+                        </tbody>
+                     </table>
                   </div>
                </div>
             </div>
