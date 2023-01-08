@@ -30,10 +30,13 @@ class Admin extends CI_Controller
       $users = $this->User_model->getUserList();
 
       $styles = [
+         'https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.css',
          'assets/css/pages/admin/styles.css?ver=' . time(),
       ];
 
       $scripts = [
+         'https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.js',
+         'assets/js/pages/user/scripts.js?ver=' . time(),
          'assets/js/pages/admin/scripts.js?ver=' . time(),
       ];
 

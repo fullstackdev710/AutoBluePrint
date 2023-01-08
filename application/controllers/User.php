@@ -33,7 +33,7 @@ class User extends CI_Controller
       ];
 
       $scripts = [
-         'assets/js/pages/admin/scripts.js?ver=' . time(),
+         'assets/js/pages/user/scripts.js?ver=' . time(),
       ];
 
       $data = [

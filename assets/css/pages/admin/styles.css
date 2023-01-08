@@ -38,3 +38,12 @@
 #add_signups th:first-child {
    width: 70px;
 }
+
+/* DataTable Style Start */
+.dataTables_length, .dataTables_info {
+   color: white;
+}
+.dataTables_wrapper {
+   padding: 10px 0px;
+}
+/* DataTable Style End */

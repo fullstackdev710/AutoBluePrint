@@ -8,6 +8,9 @@
             </h3>
             <hr class="text-white">
             <p class="text-white">
+               SIGNUP: <?php echo $user_info['signup_date']; ?>
+            </p>
+            <p class="text-white">
                Account Status: <?php echo $user_info['approved']; ?>
             </p>
             <p class="text-white">
@@ -30,6 +33,23 @@
                   Copy Link</span>
             </p>
             <hr class="text-white">
+            <div id="normal_admin_panel" class="text-white">
+               <p class="text-center sub-title">
+                  The $9.99 payment won't show on your card/bank account for about 1~2 days. DO NOT SIGNUP MULTIPLE TIMES
+               </p>
+               <p>
+                  Hello new member, welcome to the most amazing business model on the planet.
+                  Everything is already set up for you and you are ready to start making money. Before you start advertising, we ask you to wait up 24 hours for us to email you your universal link that you will use to advertise. You NEVER want to use the main webinar link above. You only want to use Universal link we supply you. Expect a welcome email within 24 hours that will contain your new universal link and first step instructions. (if you already received the welcome email and universal link you can begin advertising)
+               </p>
+               <p>
+                  In the meantime, please check out the free traffic checklist and get familiar with the different ways you can advertise once you get the universal link.
+               </p>
+               <p>
+                  <a class="text-white" href="https://autopilotgigs.com/7figure-free-traffic-checklist2">
+                     https://autopilotgigs.com/7figure-free-traffic-checklist2
+                  </a>
+               </p>
+            </div>
          </div>
       </div>
    </div>

@@ -44,11 +44,12 @@
                </ul>
                <div class="tab-content">
                   <div class="tab-pane fade show active" id="user_list">
-                     <table class="table text-white">
+                     <table id="tbl_user_list" class="table text-white">
                         <thead>
                            <tr>
                               <th scope="col">Status</th>
                               <th scope="col">Referral ID</th>
+                              <th scope="col">Signup Date</th>
                               <th scope="col">Action</th>
                            </tr>
                         </thead>
@@ -65,6 +66,9 @@
                                        <label role="button" for="<?php echo $user['ID']; ?>" onclick="update_payment_status(<?php echo $user['ID']; ?>)"> <?php echo $user['referral_id']; ?></label>
                                     </td>
                                     <td>
+                                       <?php echo $user['signup_datetime']; ?>
+                                    </td>
+                                    <td>
                                        <label role="button" style="float: right; color: #e74c3c; cursor: pointer;" onclick="delete_user(<?php echo $user['ID']; ?>)">Delete</label>
                                     </td>
                                  </tr>
@@ -76,11 +80,12 @@
                      </table>
                   </div>
                   <div class="tab-pane fade" id="unapproved_users">
-                     <table class="table text-white">
+                     <table class="table text-white" id="tbl_unapproved_users">
                         <thead>
                            <tr>
                               <th scope="col" class="text-center">Status</th>
                               <th scope="col" class="text-center">Referral ID</th>
+                              <th scope="col">Signup Date</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -94,6 +99,9 @@
                                     </td>
                                     <td>
                                        <label role="button" for="unapproved_<?php echo $user['ID']; ?>" onclick="update_unapproved_payment_status(<?php echo $user['ID']; ?>)"> <?php echo $user['referral_id']; ?></label>
+                                    </td>
+                                    <td>
+                                       <?php echo $user['signup_datetime']; ?>
                                     </td>
                                  </tr>
                            <?php
@@ -117,6 +125,7 @@
                                  <input type="checkbox" id="check_all_signs" role="button" onclick="check_all_signups()">
                               </th>
                               <th scope="col" class="text-center">Referral ID</th>
+                              <th scope="col">Signup Date</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -130,6 +139,9 @@
                                     </td>
                                     <td>
                                        <label role="button" for="add_signups_<?php echo $user['ID']; ?>"> <?php echo $user['referral_id']; ?></label>
+                                    </td>
+                                    <td>
+                                       <?php echo $user['signup_datetime']; ?>
                                     </td>
                                  </tr>
                            <?php

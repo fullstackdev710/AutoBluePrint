@@ -37,6 +37,7 @@ class User_model extends CI_Model
          'username' => $data['username'],
          'parent_username' => $data['parent_username'],
          'password' => $data['password'],
+         'signup_datetime' => date('Y-m-d H:i:s'),
          'referral_id' => $data['referral_id'],
          'approved' => 1
       ]);
@@ -60,7 +61,7 @@ class User_model extends CI_Model
 
    function getUserInfo($user_id)
    {
-      $user_info = $this->db->where('ID', $user_id)->select('username, approved, signup_counts, view_counts, referral_id, payment_status')->get('users')->row_array();
+      $user_info = $this->db->where('ID', $user_id)->select('username, approved, signup_counts, signup_datetime, view_counts, referral_id, payment_status')->get('users')->row_array();
       $signup_counts = count($this->db->where('parent_username', $user_info['username'])->get('users')->result_array()) + (int)$user_info['signup_counts'];
 
       if ((int)$user_info['view_counts'] > 148) {
@@ -73,6 +74,7 @@ class User_model extends CI_Model
 
       $result = [
          'approved'        => $user_info['approved'] ? 'APPROVED ACCOUNT' : 'UNDER REVIEW',
+         'signup_date'     => explode(' ', $user_info['signup_datetime'])[0],
          'view_counts'     => (int)$user_info['view_counts'],
          'link'            => $user_info['referral_id'] == '' ? base_url() : base_url() . '?' . $user_info['referral_id'],
          'signup_counts'   => $user_info['payment_status'] ? $signup_counts : 0
@@ -83,7 +85,7 @@ class User_model extends CI_Model
 
    function getUserList()
    {
-      $users = $this->db->where('username != ', 'admin')->select('ID, username, referral_id, payment_status')->get('users')->result_array();
+      $users = $this->db->where('username != ', 'admin')->select('ID, username, referral_id, payment_status, signup_datetime')->get('users')->result_array();
 
       if (count($users) > 0) {
          return $users;
