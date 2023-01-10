@@ -29,3 +29,31 @@ if (!function_exists('destroySession')) {
       }
    }
 }
+
+if (!function_exists('getRandomString')) {
+   function getRandomString()
+   {
+      $length = rand(2, 10);
+      $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $charactersLength = strlen($characters);
+      $randomString = '';
+      for ($i = 0; $i < $length; $i++) {
+         $randomString .= $characters[rand(0, $charactersLength - 1)];
+      }
+      return $randomString;
+   }
+}
+
+if (!function_exists('getRandomDateTime')) {
+   function getRandomDateTime($start_datetime, $end_datetime)
+   {
+      $min = strtotime($start_datetime);
+      $max = strtotime($end_datetime);
+
+      // Generate random number using above bounds
+      $val = rand($min, $max);
+
+      // Convert back to desired date format
+      return date('Y-m-d H:i:s', $val);
+   }
+}

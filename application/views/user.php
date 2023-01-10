@@ -3,9 +3,14 @@
    <div class="container">
       <div class="row">
          <div class="col">
-            <h3 class="text-white pt-5">
-               User Dashboard
-            </h3>
+            <div class="d-flex justify-content-between align-items-baseline">
+               <h3 class="text-white pt-5">
+                  User Dashboard
+               </h3>
+               <a href="<?php echo site_url() . '?' . $user_info['username']; ?>" class="btn bg-red text-white rounded-0" style="height: 40px;">
+                  Go To Home
+               </a>
+            </div>
             <hr class="text-white">
             <p class="text-white">
                SIGNUP: <?php echo $user_info['signup_date']; ?>
@@ -32,6 +37,37 @@
                   </svg>
                   Copy Link</span>
             </p>
+            <hr class="text-white">
+            <table id="tbl_user_signup_list" class="table text-white">
+               <thead>
+                  <tr>
+                     <th scope="col">User Name</th>
+                     <th scope="col">Referral ID</th>
+                     <th scope="col">Signup Date</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <?php
+                  if ($signup_users !== false) {
+                     foreach ($signup_users as $user) {
+                  ?>
+                        <tr>
+                           <td>
+                              <?php echo $user['username']; ?>
+                           </td>
+                           <td>
+                              <?php echo $user['referral_id']; ?>
+                           </td>
+                           <td>
+                              <?php echo $user['signup_datetime']; ?>
+                           </td>
+                        </tr>
+                  <?php
+                     }
+                  }
+                  ?>
+               </tbody>
+            </table>
             <hr class="text-white">
             <div id="normal_admin_panel" class="text-white">
                <p class="text-center sub-title">

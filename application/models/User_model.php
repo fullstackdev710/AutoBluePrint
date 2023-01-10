@@ -34,12 +34,13 @@ class User_model extends CI_Model
       $data = $this->input->post();
 
       $this->db->insert('users', [
-         'username' => $data['username'],
+         'username'        => $data['username'],
          'parent_username' => $data['parent_username'],
-         'password' => $data['password'],
+         'password'        => $data['password'],
          'signup_datetime' => date('Y-m-d H:i:s'),
-         'referral_id' => $data['referral_id'],
-         'approved' => 1
+         'referral_id'     => $data['referral_id'],
+         'approved'        => 1,
+         'payment_status'  => 0
       ]);
    }
 
@@ -62,7 +63,7 @@ class User_model extends CI_Model
    function getUserInfo($user_id)
    {
       $user_info = $this->db->where('ID', $user_id)->select('username, approved, signup_counts, signup_datetime, view_counts, referral_id, payment_status')->get('users')->row_array();
-      $signup_counts = count($this->db->where('parent_username', $user_info['username'])->get('users')->result_array()) + (int)$user_info['signup_counts'];
+      $signup_counts = count($this->db->where(array('parent_username' => $user_info['username'], 'payment_status' => 1))->get('users')->result_array()) + (int)$user_info['signup_counts'];
 
       if ((int)$user_info['view_counts'] > 148) {
          $signup_counts = $signup_counts + 3;
@@ -73,6 +74,7 @@ class User_model extends CI_Model
       }
 
       $result = [
+         'username'        => $user_info['username'],
          'approved'        => $user_info['approved'] ? 'APPROVED ACCOUNT' : 'UNDER REVIEW',
          'signup_date'     => explode(' ', $user_info['signup_datetime'])[0],
          'view_counts'     => (int)$user_info['view_counts'],
@@ -81,6 +83,53 @@ class User_model extends CI_Model
       ];
 
       return $result;
+   }
+
+   function getUserSignupListForEachUser($user_id)
+   {
+      $username = $this->db->where('ID', $user_id)->select('username')->get('users')->row_array()['username'];
+      $real_users = $this->db->where(array('parent_username' => $username, 'payment_status' => 1))->select('ID, username, referral_id, signup_datetime')->get('users')->result_array();
+
+      // Get Fake Signup Users Start
+      $user_info = $this->db->where('ID', $user_id)->select('view_counts, signup_counts, signup_datetime')->get('users')->row_array();
+      $fake_signup_counts = (int)$user_info['signup_counts'];
+
+      if ((int)$user_info['view_counts'] > 148) {
+         $fake_signup_counts = $fake_signup_counts + 3;
+      } else if ((int)$user_info['view_counts'] > 38) {
+         $fake_signup_counts = $fake_signup_counts + 2;
+      } else if ((int)$user_info['view_counts'] > 11) {
+         $fake_signup_counts = $fake_signup_counts + 1;
+      }
+
+      $cur_additional_signup_counts = count($this->db->where('parent_username', $username)->select('ID')->get('additional_signup_users')->result_array());
+      $signup_counts_diff = $fake_signup_counts - $cur_additional_signup_counts;
+
+      if ($signup_counts_diff > 0) {
+         for ($i = 0; $i < $signup_counts_diff; $i++) {
+            $fake_username = getRandomString();
+            $fake_referral_id = getRandomString();
+            $fake_signup_date = getRandomDateTime($user_info['signup_datetime'], date('Y-m-d H:i:s'));
+
+            $this->db->insert('additional_signup_users', [
+               'username'        => $fake_username,
+               'parent_username' => $username,
+               'signup_datetime' => $fake_signup_date,
+               'referral_id'     => $fake_referral_id
+            ]);
+         }
+      }
+
+      $fake_users = $this->db->where('parent_username', $username)->select('ID, username, referral_id, signup_datetime')->get('additional_signup_users')->result_array();
+      // Get Fake Signup Users End
+
+      $signup_users = array_merge($real_users, $fake_users);
+
+      if (count($signup_users) > 0) {
+         return $signup_users;
+      } else {
+         return false;
+      }
    }
 
    function getUserList()
