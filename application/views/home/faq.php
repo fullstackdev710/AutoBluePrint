@@ -3,12 +3,12 @@
 <section id="faq">
    <div class="container">
       <div class="row">
-         <div class="col col-lg-5 col-sm-12">
+         <div class="col-lg-5 col-sm-12">
             <h5 class="text-left text-white">
                Frequently asked questions
             </h5>
          </div>
-         <div class="col col-lg-7 col-sm-12">
+         <div class="col-lg-7 col-sm-12">
             <h6 class="text-green mb-3">
                What happens after I join?
             </h6>

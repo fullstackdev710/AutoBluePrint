@@ -4,7 +4,7 @@
    <div class="container">
       <div class="row">
          <div class="col">
-            <h1 class="text-center text-white">
+            <h1 class="text-center text-white text-shadow">
                Discover The<br>
                <span class="text-red">Secret Formula</span><br>
                That Has Our Members Prospering Within<br>

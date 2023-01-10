@@ -1,6 +1,6 @@
 
 section {
-   padding: 52px 0;
+  padding: 52px 0;
 }
 #top_banner {
   background-image: url('../../../imgs/banner_bg.png');
@@ -10,7 +10,7 @@ section {
   padding: 82px 0;
 }
 #top_banner h1 {
-   margin: auto;
+  margin: auto;
 }
 #watch_video {
   background-image: url('../../../imgs/blue_bg.jpg');
@@ -31,82 +31,88 @@ section {
   background-size: cover;
 }
 #happy_members {
-   background-image: url('../../../imgs/banner_bg.png');
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;
- }
- #faq {
-   background-color: rgba(27,37,49,.996)!important;
- }
- #contact_title {
-   background-image: url('../../../imgs/banner_bg.png');
-   background-attachment: fixed;
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;
- }
- #contact_section {
-   background-color: black;
- }
- #desc_section {
-   background-color: #050505 !important;
- }
+  background-image: url('../../../imgs/banner_bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#faq {
+  background-color: rgba(27,37,49,.996)!important;
+}
+#contact_title {
+  background-image: url('../../../imgs/banner_bg.png');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#contact_section {
+  background-color: black;
+}
+#desc_section {
+  background-color: #050505 !important;
+}
 
- /* Count Down Style Start */
- .countdown-container {
-   display: flex;
-   width: 100%;
-   justify-content: space-between;
-   margin: auto
- }
+/* Count Down Style Start */
+.countdown-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: auto
+}
  
- .days-container,
- .hours-container,
- .minutes-container, 
- .seconds-container {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   width: 75px;
-   height: 75px;
-   border: solid #ffffff 5px;
-   border-radius: 50%;
- }
+.days-container,
+.hours-container,
+.minutes-container, 
+.seconds-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  border: solid #ffffff 5px;
+  border-radius: 50%;
+}
  
- .days,
- .hours,
- .minutes,
- .seconds {
-   font-size: 2em;
-   color: #ffffff !important;
-   font-family: 'Muli Black',Helvetica,Arial,Lucida,sans-serif;
-   line-height: 1em;
- }
- .days-label,
- .hours-label,
- .minutes-label,
- .seconds-label {
-   text-transform: uppercase;
-   margin-bottom: 5px;
-   color: white;
-   font-family: 'Muli',Helvetica,Arial,Lucida,sans-serif;
-   font-weight: 600;
-   font-size: 0.6em;
-   line-height: 0.5em;
-   margin-bottom: 0px;
-   margin-top: 0.5em;
- }
+.days,
+.hours,
+.minutes,
+.seconds {
+  font-size: 2em;
+  color: #ffffff !important;
+  font-family: 'Muli Black',Helvetica,Arial,Lucida,sans-serif;
+  line-height: 1em;
+}
+.days-label,
+.hours-label,
+.minutes-label,
+.seconds-label {
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  color: white;
+  font-family: 'Muli',Helvetica,Arial,Lucida,sans-serif;
+  font-weight: 600;
+  font-size: 0.6em;
+  line-height: 0.5em;
+  margin-bottom: 0px;
+  margin-top: 0.5em;
+}
  
- @media (max-width: 800px) {
-   .days-container,
-   .hours-container,
-   .minutes-container, 
-   .seconds-container {
-     font-size: 0.8em;
-     width: 70px;
-     height: 70px;
-   }
- }
- /* Count Down Style End */
+@media (max-width: 800px) {
+  .days-container,
+  .hours-container,
+  .minutes-container, 
+  .seconds-container {
+    font-size: 0.8em;
+    width: 70px;
+    height: 70px;
+  }
+}
+/* Count Down Style End */
+
+@media (max-width: 640px) {
+  #faq *, #desc_section * {
+    text-align: center;
+  }
+}

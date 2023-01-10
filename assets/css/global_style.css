@@ -6,6 +6,10 @@
    font-family: 'Muli';
    src: url(../fonts/Muli/Muli-Regular.ttf);
 }
+@font-face {
+   font-family: 'Impact';
+   src: url(../fonts/Impact/Impact.ttf);
+}
 
 .text-yellow {
    color: #f1c40f !important;
@@ -32,6 +36,9 @@
    background-repeat: no-repeat;
    background-size: cover;
 }
+.text-shadow {
+   text-shadow: 0.0305em 0.042em 0em #000000;
+}
 .container {
    max-width: 1080px !important;
 }
@@ -39,7 +46,6 @@ h1 {
    line-height: 1em;
    font-family: 'Impact',Helvetica,Arial,Lucida,sans-serif;
    font-size: 99px;
-   text-shadow: 3px 4px 0em #000000;
 }
 h2 {
    line-height: 1.2em;

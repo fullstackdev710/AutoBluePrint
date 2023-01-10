@@ -7,7 +7,7 @@
                <h3 class="text-white pt-5">
                   User Dashboard
                </h3>
-               <a href="<?php echo site_url() . '?' . $user_info['username']; ?>" class="btn bg-red text-white rounded-0" style="height: 40px;">
+               <a href="<?php echo $user_info['link']; ?>" class="btn bg-red text-white rounded-0" style="height: 40px;">
                   Go To Home
                </a>
             </div>
