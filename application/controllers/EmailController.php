@@ -12,26 +12,55 @@ class EmailController extends CI_Controller
       $this->load->helper('url');
    }
 
+   // function send1()
+   // {
+
+   //    $curl = curl_init();
+
+   //    curl_setopt_array($curl, array(
+   //       CURLOPT_URL => 'https://api.sendgrid.com/v3/mail/send',
+   //       CURLOPT_RETURNTRANSFER => true,
+   //       CURLOPT_ENCODING => '',
+   //       CURLOPT_MAXREDIRS => 10,
+   //       CURLOPT_TIMEOUT => 0,
+   //       CURLOPT_FOLLOWLOCATION => true,
+   //       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+   //       CURLOPT_CUSTOMREQUEST => 'POST',
+   //       CURLOPT_POSTFIELDS => '{"personalizations": [{"to": [{"email": "fullstack710dev@gmail.com"}]}],"from": {"email": "admin@autoblueprint.net"},"subject": "Sending with SendGrid is Fun","content": [{"type": "text/plain", "value": "and easy to do anywhere, even with cURL"}]}',
+   //       CURLOPT_HTTPHEADER => array(
+   //          'Authorization: Bearer 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',
+   //          'Content-Type: application/json'
+   //       ),
+   //    ));
+
+   //    $response = curl_exec($curl);
+   //    echo (curl_error($curl));
+
+   //    curl_close($curl);
+   //    echo $response;
+   // }
+
    function send()
    {
-      $this->load->config('email');
-      $this->load->library('email');
-      $this->load->model('User_model');
+      if (null !== $this->input->post('username') && null !== $this->input->post('referral_id')) {
+         $this->load->config('email');
+         $this->load->library('email');
+         $this->load->model('User_model');
 
-      if ($this->User_model->existSameUser($this->input->post('username'))) {
-         echo 'Username has already exists!';
-         return;
-      }
-      if ($this->User_model->existSameReferralID($this->input->post('referral_id'))) {
-         echo 'Referral ID has already exists!';
-         return;
-      }
+         if ($this->User_model->existSameUser($this->input->post('username'))) {
+            echo 'Username has already exists!';
+            return;
+         }
+         if ($this->User_model->existSameReferralID($this->input->post('referral_id'))) {
+            echo 'Referral ID has already exists!';
+            return;
+         }
 
-      $from = $this->config->item('smtp_user');
-      // $from = 'AutoBluePrint';
-      $to = 'fullstack710dev@gmail.com';
-      $subject = 'New Blank Form Entry from AutoBluePrint';
-      $message = '
+         $from = $this->config->item('smtp_user');
+         // $from = 'AutoBluePrint';
+         $to = 'repnextup@gmail.com';
+         $subject = 'New Member Form Entry from AutoBluePrint';
+         $message = '
             <h3>From Webinar - ' . $this->input->post('parent_username') . '</h3>
             <table>
                <tbody>
@@ -103,18 +132,21 @@ class EmailController extends CI_Controller
             </table>
          ';
 
-      $this->email->set_newline("\r\n");
-      $this->email->from($from);
-      $this->email->to($to);
-      $this->email->subject($subject);
-      $this->email->message($message);
+         $this->email->set_newline("\r\n");
+         $this->email->from($from);
+         $this->email->to($to);
+         $this->email->subject($subject);
+         $this->email->message($message);
 
-      if ($this->email->send()) {
-         $this->User_model->addNewUser();
+         if ($this->email->send()) {
+            $this->User_model->addNewUser();
 
-         echo 'Your Email has successfully been sent.';
+            echo 'Your Email has successfully been sent.';
+         } else {
+            show_error($this->email->print_debugger());
+         }
       } else {
-         show_error($this->email->print_debugger());
+         redirect('/', 'refresh');
       }
    }
 }

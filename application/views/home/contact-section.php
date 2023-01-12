@@ -172,8 +172,7 @@
          if (current_url.slice(-1) == '/') {
             current_url = current_url.slice(0, -1);
          }
-         console.log('domain url: ', domain_url);
-         console.log('current url: ', current_url);
+
          let admin_username = 'admin';
          if (current_url != domain_url) {
             admin_username = current_url.replace(`${domain_url}/?`, '');
