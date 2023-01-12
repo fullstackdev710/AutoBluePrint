@@ -64,12 +64,12 @@
                      <input type="text" class="form-control" id="password" name="password" placeholder="Enter New Login Password" required>
                   </div>
                   <div class="mb-3">
-                     <input type="text" class="form-control" id="referral_id" name="referral_id" placeholder="Your New Referral ID... ONLY Letters  & Numbers - ex. BobsMoneyTree1">
+                     <input type="text" class="form-control" id="referral_id" name="referral_id" placeholder="Your New Referral ID... ONLY Letters  & Numbers - ex. BobsMoneyTree1" required>
                      <p id="duplicate_referral_id_alert" class="d-none text-red">Referral ID has already exists!</p>
                      <p id="invalid_referral_id_alert" class="d-none text-red">Only Enter Numbers & Letters ( No spaces & No special symbols )!</p>
                   </div>
                   <div class="mb-3">
-                     <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number">
+                     <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number" required>
                   </div>
                   <input type="submit" class="btn bg-green w-100 rounded-pill text-white text-uppercase strong-txt p-3" value="Pay Now">
                </form>
