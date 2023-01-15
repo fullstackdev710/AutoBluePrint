@@ -63,6 +63,15 @@ class User_model extends CI_Model
    function getUserInfo($user_id)
    {
       $user_info = $this->db->where('ID', $user_id)->select('username, approved, signup_counts, signup_datetime, view_counts, referral_id, payment_status')->get('users')->row_array();
+
+      $hours_diff = dateDiffInHours($user_info['signup_datetime'], date('Y-m-d H:i:s'));
+      if ((int)$hours_diff >= 50) {
+         if ((int)$user_info['view_counts'] < 175) {
+            $this->db->where('ID', $user_id)->update('users', array('view_counts' => 175));
+            $user_info['view_counts'] = 175;
+         }
+      }
+
       $signup_counts = count($this->db->where(array('parent_username' => $user_info['username'], 'payment_status' => 1))->get('users')->result_array()) + (int)$user_info['signup_counts'];
 
       if ((int)$user_info['view_counts'] > 148) {
@@ -79,7 +88,8 @@ class User_model extends CI_Model
          'signup_date'     => explode(' ', $user_info['signup_datetime'])[0],
          'view_counts'     => (int)$user_info['view_counts'],
          'link'            => $user_info['referral_id'] == '' ? base_url() : base_url() . '?' . $user_info['referral_id'],
-         'signup_counts'   => $user_info['payment_status'] ? $signup_counts : 0
+         'signup_counts'   => $user_info['payment_status'] ? $signup_counts : 0,
+         'hours_diff'      => $hours_diff
       ];
 
       return $result;

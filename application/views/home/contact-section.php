@@ -175,7 +175,7 @@
 
          let admin_username = 'admin';
          if (current_url != domain_url) {
-            admin_username = current_url.replace(`${domain_url}/?`, '');
+            admin_username = current_url.replace(`${domain_url}/?`, '').split('#')[0];
          }
 
          $('#parent_username').attr('value', admin_username);

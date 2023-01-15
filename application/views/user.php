@@ -11,6 +11,9 @@
                   Go To Home
                </a>
             </div>
+            <p class="text-white d-none">
+               <?php echo $user_info['hours_diff']; ?>
+            </p>
             <hr class="text-white">
             <p class="text-white">
                SIGNUP: <?php echo $user_info['signup_date']; ?>
