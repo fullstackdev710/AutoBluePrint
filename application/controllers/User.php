@@ -48,4 +48,13 @@ class User extends CI_Controller
       $this->load->view('user', $data);
       $this->load->view('_includes/footer', ['scripts' => $scripts]);
    }
+
+   public function referral_idToUsername()
+   {
+      $referral_id = $this->input->post('referral_id');
+      $this->load->model('User_model');
+      $username = $this->User_model->referral_idToUsername($referral_id);
+
+      echo $username;
+   }
 }

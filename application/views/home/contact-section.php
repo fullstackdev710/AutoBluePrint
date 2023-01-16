@@ -174,11 +174,18 @@
          }
 
          let admin_username = 'admin';
+         referral_id = '';
+
          if (current_url != domain_url) {
-            admin_username = current_url.replace(`${domain_url}/?`, '').split('#')[0];
+            referral_id = current_url.replace(`${domain_url}/?`, '').split('#')[0];
          }
 
-         $('#parent_username').attr('value', admin_username);
+         $.post(`<?php echo base_url('user/referral_idToUsername') ?>`, {
+            referral_id: referral_id
+         }, function(data) {
+            admin_username = data;
+            $('#parent_username').attr('value', admin_username);
+         });
       }, 1000);
 
       $('#username').keyup(function() {

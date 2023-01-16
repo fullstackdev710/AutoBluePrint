@@ -29,6 +29,13 @@ class User_model extends CI_Model
       }
    }
 
+   function referral_idToUsername($referral_id)
+   {
+      $username = $this->db->where('referral_id', $referral_id)->select('username')->get('users')->row_array()['username'];
+
+      return $username;
+   }
+
    function addNewUser()
    {
       $data = $this->input->post();
