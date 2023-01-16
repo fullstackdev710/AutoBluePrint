@@ -69,24 +69,20 @@ class User_model extends CI_Model
 
    function getUserInfo($user_id)
    {
-      $user_info = $this->db->where('ID', $user_id)->select('username, approved, signup_counts, signup_datetime, view_counts, referral_id, payment_status')->get('users')->row_array();
+      $user_info = $this->db->where('ID', $user_id)->select('username, approved, signup_counts, signup_datetime, view_counts, referral_id, payment_status, level')->get('users')->row_array();
 
-      $hours_diff = dateDiffInHours($user_info['signup_datetime'], date('Y-m-d H:i:s'));
-      if ((int)$hours_diff >= 50) {
-         if ((int)$user_info['view_counts'] < 175) {
-            $this->db->where('ID', $user_id)->update('users', array('view_counts' => 175));
-            $user_info['view_counts'] = 175;
+      if (!$user_info['level']) {
+         $hours_diff = dateDiffInHours($user_info['signup_datetime'], date('Y-m-d H:i:s'));
+         if ((int)$hours_diff >= 50) {
+            if ((int)$user_info['view_counts'] < 175) {
+               $this->db->where('ID', $user_id)->update('users', array('view_counts' => 175));
+               $user_info['view_counts'] = 175;
+            }
          }
-      }
 
-      $signup_counts = count($this->db->where(array('parent_username' => $user_info['username'], 'payment_status' => 1))->get('users')->result_array()) + (int)$user_info['signup_counts'];
-
-      if ((int)$user_info['view_counts'] > 148) {
-         $signup_counts = $signup_counts + 3;
-      } else if ((int)$user_info['view_counts'] > 38) {
-         $signup_counts = $signup_counts + 2;
-      } else if ((int)$user_info['view_counts'] > 11) {
-         $signup_counts = $signup_counts + 1;
+         $signup_counts = count($this->db->where(array('parent_username' => $user_info['username'], 'payment_status' => 1))->get('users')->result_array()) + (int)$user_info['signup_counts'] + getFakeSignupCounts((int)$user_info['view_counts']);
+      } else {
+         $signup_counts = count($this->db->where(array('parent_username' => $user_info['username'], 'payment_status' => 1))->get('users')->result_array()) + (int)$user_info['signup_counts'];
       }
 
       $result = [
@@ -95,8 +91,7 @@ class User_model extends CI_Model
          'signup_date'     => explode(' ', $user_info['signup_datetime'])[0],
          'view_counts'     => (int)$user_info['view_counts'],
          'link'            => $user_info['referral_id'] == '' ? base_url() : base_url() . '?' . $user_info['referral_id'],
-         'signup_counts'   => $user_info['payment_status'] ? $signup_counts : 0,
-         'hours_diff'      => $hours_diff
+         'signup_counts'   => $user_info['payment_status'] ? $signup_counts : 0
       ];
 
       return $result;
@@ -109,15 +104,7 @@ class User_model extends CI_Model
 
       // Get Fake Signup Users Start
       $user_info = $this->db->where('ID', $user_id)->select('view_counts, signup_counts, signup_datetime')->get('users')->row_array();
-      $fake_signup_counts = (int)$user_info['signup_counts'];
-
-      if ((int)$user_info['view_counts'] > 148) {
-         $fake_signup_counts = $fake_signup_counts + 3;
-      } else if ((int)$user_info['view_counts'] > 38) {
-         $fake_signup_counts = $fake_signup_counts + 2;
-      } else if ((int)$user_info['view_counts'] > 11) {
-         $fake_signup_counts = $fake_signup_counts + 1;
-      }
+      $fake_signup_counts = (int)$user_info['signup_counts'] + getFakeSignupCounts((int)$user_info['view_counts']);
 
       $cur_additional_signup_counts = count($this->db->where('parent_username', $username)->select('ID')->get('additional_signup_users')->result_array());
       $signup_counts_diff = $fake_signup_counts - $cur_additional_signup_counts;
@@ -178,6 +165,14 @@ class User_model extends CI_Model
 
    function deleteUser($user_id)
    {
-      return $this->db->delete('users', array('ID' => $user_id));
+      try {
+         $username = $this->db->where('ID', $user_id)->select('username')->get('users')->row_array()['username'];
+         $this->db->delete('users', array('ID' => $user_id));
+         $this->db->delete('additional_signup_users', array('parent_username' => $username));
+
+         return true;
+      } catch (Exception $exception) {
+         return $exception;
+      }
    }
 }

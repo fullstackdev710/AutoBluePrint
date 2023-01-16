@@ -61,7 +61,7 @@ class EmailController extends CI_Controller
          $to = 'repnextup@gmail.com';
          $subject = 'New Member Form Entry from AutoBluePrint';
          $message = '
-            <h3>From Webinar - ' . $this->input->post('parent_username') . '</h3>
+            <h3>From Webinar - ' . $this->input->post('parent_referral_id') . '</h3>
             <table>
                <tbody>
                   <tr>

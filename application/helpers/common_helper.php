@@ -58,6 +58,21 @@ if (!function_exists('getRandomDateTime')) {
    }
 }
 
+if (!function_exists('getFakeSignupCounts')) {
+   function getFakeSignupCounts($view_counts)
+   {
+      if ((int)$view_counts > 148) {
+         return 3;
+      } else if ((int)$view_counts > 38) {
+         return 2;
+      } else if ((int)$view_counts > 11) {
+         return 1;
+      } else {
+         return 0;
+      }
+   }
+}
+
 if (!function_exists('dateDiffInDays')) {
    function dateDiffInDays($date1, $date2)
    {
