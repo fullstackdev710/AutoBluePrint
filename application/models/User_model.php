@@ -39,10 +39,11 @@ class User_model extends CI_Model
    function addNewUser()
    {
       $data = $this->input->post();
+      $parent_username = $this->referral_idToUsername($data['parent_referral_id']);
 
       $this->db->insert('users', [
          'username'        => $data['username'],
-         'parent_username' => $data['parent_username'],
+         'parent_username' => $parent_username,
          'password'        => $data['password'],
          'signup_datetime' => date('Y-m-d H:i:s'),
          'referral_id'     => $data['referral_id'],

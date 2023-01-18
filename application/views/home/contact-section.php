@@ -16,7 +16,6 @@
                </p>
 
                <form id="signup_form" class="mb-3">
-                  <input type="hidden" id="parent_username" name="parent_username" value="admin">
                   <input type="hidden" id="parent_referral_id" name="parent_referral_id" value="admin">
                   <div class="mb-3">
                      <input type="text" class="form-control" id="card_name" name="card_name" placeholder="Cardholder's Name" required>
@@ -181,13 +180,6 @@
             parent_referral_id = current_url.replace(`${domain_url}/?`, '').split('#')[0];
          }
          $('#parent_referral_id').attr('value', parent_referral_id);
-
-         $.post(`<?php echo base_url('user/referral_idToUsername') ?>`, {
-            referral_id: parent_referral_id
-         }, function(data) {
-            admin_username = data;
-            $('#parent_username').attr('value', admin_username);
-         });
       }, 2000);
 
       $('#username').keyup(function() {
