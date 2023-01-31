@@ -38,7 +38,9 @@
 #add_signups th:first-child {
    width: 70px;
 }
-
+#control_panel {
+   height: 60px;
+}
 /* DataTable Style Start */
 .dataTables_length, .dataTables_info {
    color: white;

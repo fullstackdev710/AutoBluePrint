@@ -79,4 +79,15 @@ class Admin extends CI_Controller
 
       echo $deleted;
    }
+
+   public function exportUserListAsCSV()
+   {
+      $this->load->model('User_model');
+
+      $user_list = $this->User_model->getUserList();
+
+      // echo json_encode(array_column($user_list, 'ID', 'addr_2', 'approved', 'bill_addr', 'card_name', 'city_region', 'country', 'credit_card_name', 'cvv_card', 'expire_date', 'level', 'membership', 'parent_username', 'password', 'payment_status', 'phone_number', 'referral_id', 'signup_counts', 'signup_datetime', 'state_province', 'user_email', 'username', 'view_counts', 'zip_code'));
+      // echo json_encode(array_column($user_list, '*'));
+      echo json_encode($user_list);
+   }
 }

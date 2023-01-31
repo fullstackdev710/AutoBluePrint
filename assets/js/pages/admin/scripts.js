@@ -71,6 +71,28 @@ $(document).ready(function() {
         [2, 'desc']
       ]
    });
+
+   $('#btn_export_csv').on('click', function(e) {
+      console.log('export button clicked.');
+      $.post(`${siteUrl}Admin/exportUserListAsCSV`, function(response) {
+         user_list = JSON.parse(response);
+         console.log('user list: ', user_list);
+         let csvContent = "ID,Username,User Email,Password,Signup DateTime,Refferal ID,Signup Counts,View Counts,Parent Username,Cardholder's Name,Credit Card Number,Expire Date,CVV,Billing Address,Address 2,City,State,Zip,Country,Membership,Phone Number"+"\r\n";
+         csvContent += user_list.map(row => Object.values(row).join(",")).join("\r\n");
+         
+         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8,' })
+         const objUrl = URL.createObjectURL(blob);
+
+         let a = document.createElement("a");
+         document.body.appendChild(a);
+         a.style = "display: none";
+         a.href = objUrl;
+         a.download = 'export.csv';
+         a.click();
+         window.URL.revokeObjectURL(objUrl);
+         a.remove();
+      })
+   });
 });
 
 function update_payment_status(user_id) {
@@ -83,8 +105,7 @@ function update_payment_status(user_id) {
       user_id: user_id,
       status: payment_status
    }
-   console.log('checked_user: ', user_id);
-   console.log('data: ', payment_status_data);
+   
    $.post(`${siteUrl}Admin/updateUserPaymentStatus`, payment_status_data, function(response) {
       console.log('response: ', response);
    });

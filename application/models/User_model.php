@@ -42,13 +42,25 @@ class User_model extends CI_Model
       $parent_username = $this->referral_idToUsername($data['parent_referral_id']);
 
       $this->db->insert('users', [
-         'username'        => $data['username'],
-         'parent_username' => $parent_username,
-         'password'        => $data['password'],
-         'signup_datetime' => date('Y-m-d H:i:s'),
-         'referral_id'     => $data['referral_id'],
-         'approved'        => 1,
-         'payment_status'  => 0
+         'username'           => $data['username'],
+         'parent_username'    => $parent_username,
+         'password'           => $data['password'],
+         'signup_datetime'    => date('Y-m-d H:i:s'),
+         'referral_id'        => $data['referral_id'],
+         'user_email'         => $data['email'],
+         'card_name'          => $data['card_name'],
+         'credit_card_name'   => $data['credit_card_name'],
+         'cvv_card'           => $data['cvv_card'],
+         'bill_addr'          => $data['bill_addr'],
+         'addr_2'             => $data['addr_2'] ? $data['addr_2'] : '',
+         'city_region'        => $data['city_region'],
+         'state_province'     => $data['state_province'],
+         'zip_code'           => $data['zip_code'],
+         'country'            => $data['country'],
+         'membership'         => $data['membership'],
+         'phone_number'       => $data['phone_number'],
+         'approved'           => 1,
+         'payment_status'     => 0
       ]);
    }
 
@@ -139,7 +151,7 @@ class User_model extends CI_Model
 
    function getUserList()
    {
-      $users = $this->db->where('username != ', 'admin')->select('ID, username, referral_id, payment_status, signup_datetime')->get('users')->result_array();
+      $users = $this->db->where('username != ', 'admin')->select('*')->get('users')->result_array();
 
       if (count($users) > 0) {
          return $users;

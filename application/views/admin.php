@@ -31,6 +31,9 @@
             </p>
             <hr class="text-white">
             <div id="admin_board">
+               <div id="control_panel">
+                  <button type="button" id="btn_export_csv" class="btn bg-red text-white float-end">Export as CSV</button>
+               </div>
                <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
                      <a class="nav-link active" data-bs-toggle="tab" href="#user_list">User List</a>
