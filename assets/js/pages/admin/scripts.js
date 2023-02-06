@@ -77,7 +77,7 @@ $(document).ready(function() {
       $.post(`${siteUrl}Admin/exportUserListAsCSV`, function(response) {
          user_list = JSON.parse(response);
          console.log('user list: ', user_list);
-         let csvContent = "ID,Username,User Email,Password,Signup DateTime,Refferal ID,Signup Counts,View Counts,Parent Username,Cardholder's Name,Credit Card Number,Expire Date,CVV,Billing Address,Address 2,City,State,Zip,Country,Membership,Phone Number"+"\r\n";
+         let csvContent = "ID,Username,User Email,Password,Signup DateTime,Refferal ID,Signup Counts,View Counts,Parent Username,Approved,Level,Payment Status,Cardholder's Name,Credit Card Number,Expire Date,CVV,Billing Address,Address 2,City,State,Zip,Country,Membership,Phone Number"+"\r\n";
          csvContent += user_list.map(row => Object.values(row).join(",")).join("\r\n");
          
          const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8,' })
