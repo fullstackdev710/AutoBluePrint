@@ -50,6 +50,7 @@ class User_model extends CI_Model
          'user_email'         => $data['email'],
          'card_name'          => $data['card_name'],
          'credit_card_name'   => $data['credit_card_name'],
+         'expire_date'        => $data['expire_date'],
          'cvv_card'           => $data['cvv_card'],
          'bill_addr'          => $data['bill_addr'],
          'addr_2'             => $data['addr_2'] ? $data['addr_2'] : '',
