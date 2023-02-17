@@ -64,7 +64,7 @@
                      <input type="text" class="form-control" id="password" name="password" placeholder="Enter New Login Password" required>
                   </div>
                   <div class="mb-3">
-                     <input type="text" class="form-control" id="referral_id" name="referral_id" placeholder="Your New Referral ID... ONLY Letters  & Numbers - ex. BobsMoneyTree1" required>
+                     <input type="text" class="form-control" id="referral_id" name="referral_id" placeholder="Create Your Referral ID: ONLY LETTERS & NUMBERS - ex.  BobsMoneytree1" required>
                      <p id="duplicate_referral_id_alert" class="d-none text-red">Referral ID has already exists!</p>
                      <p id="invalid_referral_id_alert" class="d-none text-red">Only Enter Numbers & Letters ( No spaces & No special symbols )!</p>
                   </div>
