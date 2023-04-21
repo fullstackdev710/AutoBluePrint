@@ -1,51 +1,57 @@
 #view_page input {
-   width: 360px;
-   display: inline-block;
-   padding: 4px 8px;
-   border: solid 1px white;
+	width: 360px;
+	display: inline-block;
+	padding: 4px 8px;
+	border: solid 1px white;
 }
 #copy_webinar_link {
-   cursor: pointer;
+	cursor: pointer;
 }
 #admin_board .nav-link {
-   color: white;
+	color: white;
 }
 #admin_board .active.nav-link {
-   color: #e74c3c;
-   font-weight: bold;
+	color: #e74c3c;
+	font-weight: bold;
 }
-#user_list th, #user_list td {   
-   text-align: center;
+#user_list th,
+#user_list td {
+	text-align: center;
 }
-#user_list th:first-child, #user_list th:last-child, #user_list td:first-child, #user_list td:last-child {
-   width: 70px;
+#user_list th:first-child,
+#user_list th:last-child,
+#user_list td:first-child,
+#user_list td:last-child {
+	width: 70px;
 }
 #unapproved_users table tr[payment-status="1"] {
-   display: none;
+	display: none;
 }
 #add_signup_control_panel {
-   display: flex;
+	display: flex;
 }
 #add_signup_control_panel label {
-   line-height: 2em;
+	line-height: 2em;
 }
-#add_signup_success {
-   display: none;
+#add_signup_success,
+#add_hits_success {
+	display: none;
 }
 #unapproved_users th:first-child {
-   width: 70px;
+	width: 70px;
 }
 #add_signups th:first-child {
-   width: 70px;
+	width: 70px;
 }
 #control_panel {
-   height: 60px;
+	height: 60px;
 }
 /* DataTable Style Start */
-.dataTables_length, .dataTables_info {
-   color: white;
+.dataTables_length,
+.dataTables_info {
+	color: white;
 }
 .dataTables_wrapper {
-   padding: 10px 0px;
+	padding: 10px 0px;
 }
 /* DataTable Style End */

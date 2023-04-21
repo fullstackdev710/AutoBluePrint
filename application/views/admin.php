@@ -171,12 +171,13 @@
                         <thead>
                            <tr>
                               <th scope="col" class="text-center">
-                                 <input type="checkbox" id="check_all_signs" role="button" onclick="check_all_signups()">
+                                 <input type="checkbox" id="check_all_hits" role="button" onclick="check_all_hit_users()">
                               </th>
                               <th scope="col" class="text-center">Referral ID</th>
                               <th scope="col">Signup Date</th>
                               <th>Hit Status</th>
-                              <th>Hid End Date</th>
+                              <th>Hit Start Date</th>
+                              <th>Hit End Date</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -195,10 +196,13 @@
                                        <?php echo $user['signup_datetime']; ?>
                                     </td>
                                     <td>
-                                       <?php echo $user['signup_datetime']; ?>
+                                       <?= $user['target_hits'] ? $user['added_hits'] . ' / ' . $user['target_hits'] : '' ?>
                                     </td>
                                     <td>
-                                       <?php echo $user['signup_datetime']; ?>
+                                       <?= $user['start_hits_date'] ? $user['start_hits_date'] : '' ?>
+                                    </td>
+                                    <td>
+                                       <?= $user['end_hits_date'] ? $user['end_hits_date'] : '' ?>
                                     </td>
                                  </tr>
                            <?php

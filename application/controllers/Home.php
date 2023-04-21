@@ -49,4 +49,11 @@ class Home extends CI_Controller
 		$this->load->view('home/desc-section');
 		$this->load->view('_includes/footer', ['scripts' => $scripts]);
 	}
+
+	public function Test()
+	{
+		echo 'Test<br>';
+		$this->load->model('User_model');
+		$this->User_model->addFakeHits();
+	}
 }

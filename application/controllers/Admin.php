@@ -71,6 +71,19 @@ class Admin extends CI_Controller
       echo $addSignUps;
    }
 
+   public function addHits()
+   {
+      $users = json_decode($this->input->post('selected_users'));
+      $amount = $this->input->post('amount');
+      $duration = $this->input->post('duration');
+      var_dump($users);
+
+      $this->load->model('User_model');
+      $addHits = $this->User_model->setFakeHits($users, $amount, $duration);
+
+      echo $addHits;
+   }
+
    public function deleteUser()
    {
       $user_id = $this->input->post('user_id');

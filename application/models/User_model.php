@@ -65,6 +65,31 @@ class User_model extends CI_Model
       ]);
    }
 
+   function addFakeHits()
+   {
+      $curr_date = date('Y-m-d');
+      $duration = 30;
+      $end_date = date('Y-m-d', strtotime('+' . $duration . ' days'));
+
+      $users = $this->db->where('username != ', 'admin')->select('ID, target_hits, added_hits, start_hits_date, end_hits_date')->get('users')->result_array();
+
+      if (count($users) > 0) {
+         foreach ($users as $user) {
+            $diff_date = date_diff(date_create($user['end_hits_date']), date_create($user['start_hits_date']))->days;
+
+            $rest_hits = $user['target_hits'] - $user['added_hits'];
+
+            if ($diff_date == 0) {
+               $this->db->where('ID', $user['ID'])->update('users', array('added_hits' => $user['target_hits']));
+            } elseif ($diff_date > 0) {
+               $step_hits = rand(floor($rest_hits / $diff_date * 0.7), floor($rest_hits / $diff_date * 1.5));
+               $this->db->where('ID', $user['ID'])->update('users', array('added_hits' => ($user['added_hits'] + $step_hits)));
+               printf('%d %d' . PHP_EOL, $user['ID'], $step_hits);
+            }
+         }
+      }
+   }
+
    function addNewView($page_owner)
    {
       $is_admin = true;
@@ -83,7 +108,7 @@ class User_model extends CI_Model
 
    function getUserInfo($user_id)
    {
-      $user_info = $this->db->where('ID', $user_id)->select('username, approved, signup_counts, signup_datetime, view_counts, referral_id, payment_status, level')->get('users')->row_array();
+      $user_info = $this->db->where('ID', $user_id)->select('username, approved, signup_counts, signup_datetime, view_counts, referral_id, payment_status, level, added_hits')->get('users')->row_array();
 
       if (!$user_info['level']) {
          $hours_diff = dateDiffInHours($user_info['signup_datetime'], date('Y-m-d H:i:s'));
@@ -103,7 +128,7 @@ class User_model extends CI_Model
          'username'        => $user_info['username'],
          'approved'        => $user_info['approved'] ? 'APPROVED ACCOUNT' : 'UNDER REVIEW',
          'signup_date'     => explode(' ', $user_info['signup_datetime'])[0],
-         'view_counts'     => (int)$user_info['view_counts'],
+         'view_counts'     => (int)$user_info['view_counts'] + (int)$user_info['added_hits'],
          'link'            => $user_info['referral_id'] == '' ? base_url() : base_url() . '?' . $user_info['referral_id'],
          'signup_counts'   => $user_info['payment_status'] ? $signup_counts : 0
       ];
@@ -172,6 +197,21 @@ class User_model extends CI_Model
          $cur_signups = $this->db->where('ID', $user_id)->select('signup_counts')->get('users')->row_array()['signup_counts'];
          $signup_counts = (int)$cur_signups + (int)$amount;
          $this->db->where('ID', $user_id)->update('users', array('signup_counts' => $signup_counts));
+      }
+
+      return true;
+   }
+
+   function setFakeHits($users, $amount, $duration)
+   {
+      $curr_date = date('Y-m-d');
+      $end_date = date('Y-m-d', strtotime('+' . $duration . ' days'));
+      if (count($users) > 0) {
+         foreach ($users as $user_id) {
+            $target_hits = $this->db->where('ID', $user_id)->select('target_hits')->get('users')->row_array()['target_hits'] + $amount;
+
+            $this->db->where('ID', $user_id)->update('users', array('target_hits' => $target_hits, 'start_hits_date' => $curr_date, 'end_hits_date' => $end_date));
+         }
       }
 
       return true;
