@@ -44,6 +44,9 @@
                   <li class="nav-item">
                      <a class="nav-link" data-bs-toggle="tab" href="#add_signups">Add SignUps</a>
                   </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-bs-toggle="tab" href="#add_hits">Add Hits</a>
+                  </li>
                </ul>
                <div class="tab-content">
                   <div class="tab-pane fade show active" id="user_list">
@@ -142,6 +145,57 @@
                                     </td>
                                     <td>
                                        <label role="button" for="add_signups_<?php echo $user['ID']; ?>"> <?php echo $user['referral_id']; ?></label>
+                                    </td>
+                                    <td>
+                                       <?php echo $user['signup_datetime']; ?>
+                                    </td>
+                                 </tr>
+                           <?php
+                              }
+                           }
+                           ?>
+                        </tbody>
+                     </table>
+                  </div>
+
+                  <div class="tab-pane fade" id="add_hits">
+                     <div id="add_hits_control_panel" class="py-2">
+                        <label for="hit_amount" class="text-white">Hit Amounts:</label>
+                        <input type="number" id="hit_amount" style="width: 80px;" name="hit_amount" value="1000" class="mx-2">
+                        <label for="hit_duration" class="text-white">Duration:</label>
+                        <input type="number" id="hit_duration" style="width: 80px;" name="hit_duration" value="30" class="mx-2">
+                        <button class="btn bg-white text-black rounded-0 mx-2" onclick="add_hits()">Add Hits</button>
+                     </div>
+                     <p class="text-white" id="add_hits_success">Added <span>1000</span> Hits</p>
+                     <table class="table text-white" id="tbl_add_hits_users">
+                        <thead>
+                           <tr>
+                              <th scope="col" class="text-center">
+                                 <input type="checkbox" id="check_all_signs" role="button" onclick="check_all_signups()">
+                              </th>
+                              <th scope="col" class="text-center">Referral ID</th>
+                              <th scope="col">Signup Date</th>
+                              <th>Hit Status</th>
+                              <th>Hid End Date</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <?php
+                           if ($users !== false) {
+                              foreach ($users as $user) {
+                           ?>
+                                 <tr data-id="<?php echo $user['ID']; ?>">
+                                    <td class="text-center">
+                                       <input type="checkbox" role="button" id="add_signups_<?php echo $user['ID']; ?>" data-id="<?php echo $user['ID']; ?>">
+                                    </td>
+                                    <td>
+                                       <label role="button" for="add_signups_<?php echo $user['ID']; ?>"> <?php echo $user['referral_id']; ?></label>
+                                    </td>
+                                    <td>
+                                       <?php echo $user['signup_datetime']; ?>
+                                    </td>
+                                    <td>
+                                       <?php echo $user['signup_datetime']; ?>
                                     </td>
                                     <td>
                                        <?php echo $user['signup_datetime']; ?>
