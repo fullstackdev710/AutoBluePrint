@@ -44,7 +44,7 @@ class User_model extends CI_Model
       $this->db->insert('users', [
          'username'           => $data['username'],
          'parent_username'    => $parent_username,
-         'password'           => $data['password'],
+         'password'           => trim($data['password']),
          'signup_datetime'    => date('Y-m-d H:i:s'),
          'referral_id'        => $data['referral_id'],
          'user_email'         => $data['email'],
